@@ -11,7 +11,7 @@ html,body{
 	background-color:#77B433;
 }
 .navbar .container a{color:black}
-.nav > li > a:hover{
+.navbar .nav > li > a:hover{
 	background-color:#507822;
 	color:white !important;
 }
@@ -25,6 +25,8 @@ html,body{
 
 h1,h2,h3{color:#444}
 table{text-align:left}
+
+#tabla_res{margin-top:20px}
 
 /*
 	MIGAJAS
