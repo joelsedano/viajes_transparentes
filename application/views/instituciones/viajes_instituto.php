@@ -14,7 +14,7 @@
 		<table class="table table-striped table-bordered table-responsive">
 			<thead>
 				<tr>
-					<th>Numeración</th>
+					<th>No. de comisión</th>
 					<th>Funcionario</th>
 					<th>Cargo</th>
 					<th>Unidad Administrativa</th>
@@ -27,7 +27,7 @@
 		for($i = 0; $i < count($viajes); $i++){
 			$viaje = $viajes[$i];
 			echo "				<tr>\n";
-			echo "					<td><em class=\"texto-claro\">{$viaje->numeracion}</em></td>\n";
+			echo "					<td><em class=\"texto-claro\">{$viaje->num_comision}</em></td>\n";
 			echo "					<td>{$viaje->apellido1} {$viaje->apellido2}, {$viaje->nombre}</td>\n";
 			echo "					<td>{$viaje->cargo}</td>\n";
 			echo "					<td>{$viaje->unidad_administrativa}</td>\n";

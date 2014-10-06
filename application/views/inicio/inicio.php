@@ -29,7 +29,7 @@
 		<table class="table table-striped table-bordered table-responsive">
 			<thead>
 				<tr>
-					<th>Numeración</th>
+					<th>No. de comisión</th>
 					<th>Servidor público</th>
 					<th>Representación</th>
 					<th>Viaje</th>
@@ -45,8 +45,8 @@
 	for($i=0; $i<count($viajes); $i++){
 		$v = $viajes[$i];
 		echo "				<tr class=\"enlace\" onclick=\"detalles({$v->id})\">\n";
-		if($v->numeracion == "") echo "					<td><em class=\"texto-claro\">N/D</em></td>\n";
-		else echo "					<td>{$v->numeracion}</td>\n";
+		if($v->num_comision == "") echo "					<td><em class=\"texto-claro\">N/D</em></td>\n";
+		else echo "					<td>{$v->num_comision}</td>\n";
 		if($v->nombre == "") echo "					<td><em class=\"texto-claro\">No capturado</em></td>\n";
 		else echo "					<td>{$v->nombre} {$v->apellido1} {$v->apellido2}<br><small>{$v->cargo}</small></td>\n";
 		echo "					<td>{$tipo_representa[$v->tipo_representacion]}</td>\n";

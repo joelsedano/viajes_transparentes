@@ -5,7 +5,16 @@
 		if($mes != 00) return "$dia/{$meses[$mes]}/$anio";
 		else return "No definido";
 	}
-	function fecha_mx2sql($fecha){
+	function fecha_mx2($fecha){
+		list($anio, $mes, $dia) = explode("-", $fecha);
+		return "$dia/$mes/$anio";
+	}
+	
+	function fecha_sql($fecha){
 		list($dia, $mes, $anio) = explode("/", $fecha);
 		return "$anio-$mes-$dia";
 	}
+	/*function fecha_mx2sql($fecha){
+		list($dia, $mes, $anio) = explode("/", $fecha);
+		return "$anio-$mes-$dia";
+	}*/

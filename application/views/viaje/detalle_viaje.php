@@ -38,10 +38,6 @@
 	}
 ?>
 
-			<p><strong>Numeración:</strong> <?php
-			if($v->numeracion != "") echo $v->numeracion;
-			else echo '<span class="texto-claro">No capturado</span>';
-			?></p>
 			<p><strong>Mecanismo que origina la comisión:</strong> <?php echo $v->mecanismo_origen; ?></p>
 			<p><strong>Quién invita / qué UR solicita:</strong> <?php echo $v->solicitante; ?></p>
 			<p><strong>Unidad Responsable que genera la nota de viaje (área sustantiva):</strong><br><?php echo $v->unidad_responsable; ?></p>
@@ -123,7 +119,9 @@
 			?></p>
 			<p><strong>Tarifa diaria de viáticos por día:</strong> <?php
 			if($v->tarifa_x_dia == "0.00") echo "<span class=\"texto-claro\">No Capturado</span>";
-			else echo "$".number_format($v->tarifa_x_dia, 2)." MXN";
+			else echo "$".number_format($v->tarifa_x_dia, 2);
+			if($v->moneda == 1) echo " MXN";
+			elseif($v->moneda == 2) echo " USD";
 			?></p>
 			<p><strong>Gasto por concepto de viáticos (MXN):</strong> <?php
 			if($v->gastos_viaticos_mxn == "0.00") echo "<span class=\"texto-claro\">No Capturado</span>";
@@ -169,7 +167,7 @@
 			?></p>
 			<p><strong>Página web del evento:</strong> <?php
 			if($v->url_evento == "") echo "<span class=\"texto-claro\">No Capturado</span>";
-			else echo "<a href=\"{$v->url_evento}\" target=\"_blank\">Visitar página web</a>";
+			else echo "<a href=\"http://{$v->url_evento}\" target=\"_blank\">Visitar página web</a>";
 			?></p>
 			<p><strong>Motivo de la comisión:</strong> <?php
 			if($v->motivo_comision == "") echo "<span class=\"texto-claro\">No Capturado</span>";
@@ -197,7 +195,7 @@
 			?></p>
 			<p><strong>Comunicado:</strong> <?php
 			if($v->url_comunicado == "") echo "<span class=\"texto-claro\">No Capturado</span>";
-			else echo $v->url_comunicado;
+			else echo "<a href=\"http://{$v->url_comunicado}\" target=\"_blank\">{$v->url_comunicado}</a>";
 			?></p>
 		</div>
 		
@@ -243,10 +241,7 @@
 	//else echo '<span class="texto-claro">No capturado</span>';
 	?></p>
 	<h5>Datos de registro</h5>
-	<p><strong>Numeración:</strong> <?php
-		if($v->numeracion != "") echo $v->numeracion;
-		else echo '<span class="texto-claro">No capturado</span>';
-		?><br>
+	<p>
 		<strong>Mecanismo que origina la comisión:</strong> <?php echo $v->mecanismo_origen; ?><br>
 		<strong>Quién invita / qué UR solicita:</strong> <?php echo $v->solicitante; ?><br>
 		<strong>Unidad Responsable que genera la nota de viaje (área sustantiva):</strong> <?php echo $v->unidad_responsable; ?><br>
@@ -322,7 +317,9 @@
 	?><br>
 	<strong>Tarifa diaria de viáticos por día:</strong> <?php
 	if($v->tarifa_x_dia == "0.00") echo "<span class=\"texto-claro\">No Capturado</span>";
-	else echo "$".number_format($v->tarifa_x_dia, 2)." MXN";
+	else echo "$".number_format($v->tarifa_x_dia, 2);
+	if($v->moneda == 1) echo " MXN";
+	elseif($v->moneda == 2) echo " USD";
 	?><br>
 	<strong>Gasto por concepto de viáticos (MXN):</strong> <?php
 	if($v->gastos_viaticos_mxn == "0.00") echo "<span class=\"texto-claro\">No Capturado</span>";

@@ -20,7 +20,9 @@
 						<option value="0">Instituciones disponibles</option>
 <?php
 	foreach($instituciones as $valor){
-		echo "						<option value=\"{$valor->id}\">{$valor->nombre}</option>\n";
+		$extra = "";
+		if($viaje->instituto == $valor->id) $extra=" selected";
+		echo "						<option value=\"{$valor->id}\"$extra>{$valor->nombre}</option>\n";
 	}
 ?>
 					</select>
@@ -43,7 +45,7 @@ if(isset($funcionarios)){
 ?>
 				</div>
 			</div>
-			<div class="form-group">
+			<!--<div class="form-group">
 				<label class="col-md-2 control-label">Cargo del Funcionario</label>
 				<div class="col-md-6">
 					<input type="text" class="form-control" name="cargo_servidor" placeholder="Cargo del funcionario"<?php if(isset($viaje->cargo_servidor)) echo " value=\"{$viaje->cargo_servidor}\""; ?>>
@@ -53,7 +55,7 @@ if(isset($funcionarios)){
 				<div class="col-md-2">
 					<input type="text" class="form-control" name="grupo_servidor" placeholder="Grupo jerárquico"<?php if(isset($viaje->grupo_servidor)) echo " value=\"{$viaje->grupo_servidor}\""; ?>>
 				</div>
-			</div>
+			</div>-->
 			
 			<div class="form-group">
 				<div class="pull-right">
@@ -65,43 +67,31 @@ if(isset($funcionarios)){
 		<div id="contenido_2" class="info_pestana oculto">
 			<h3>Datos de registro de viaje</h3>
 			<div class="form-group">
-				<label class="col-md-2 control-label">Numeración</label>
-				<div class="col-md-2">
-					<input type="text" class="form-control" name="numeracion" placeholder="Numeración"<?php if(isset($viaje->numeracion)) echo " value=\"{$viaje->numeracion}\""; ?>>
-				</div>
 				<label class="col-md-2 control-label">Tipo de representación</label>
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<select class="form-control" name="tipo_representacion">
-						<option value="0">No definido</option>
-						<option value="1">Técnico</option>
-						<option value="2">Alto Nivel</option>
+						<option value="0"<?php if($viaje->tipo_representacion == 0) echo " selected"; ?>>No definido</option>
+						<option value="1"<?php if($viaje->tipo_representacion == 1) echo " selected"; ?>>Técnico</option>
+						<option value="2"<?php if($viaje->tipo_representacion == 2) echo " selected"; ?>>Alto Nivel</option>
 					</select>
 				</div>
 				<label class="col-md-2 control-label">Mecanismo de origen</label>
-				<div class="col-md-2">
-					<select class="form-control" name="tipo_representacion">
-						<option value="0">No definido</option>
-						<option value="Invitación">Invitación</option>
-						<option value="Requerimiento de UR">Requerimiento de UR</option>
-					</select>
+				<div class="col-md-4">
+					<input type="text" class="form-control" name="mecanismo_origen" placeholder="Mecanismo de origen"<?php if(isset($viaje->mecanismo_origen)) echo " value=\"{$viaje->mecanismo_origen}\""; ?>>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label class="col-md-2 control-label">Número de comisión</label>
-				<div class="col-md-2">
-					<input type="text" class="form-control" name="num_comision" placeholder="No. de comisión"<?php if(isset($viaje->num_comision)) echo " value=\"{$viaje->num_comision}\""; ?>>
-				</div>
 				<label class="col-md-2 control-label">Tipo de viaje</label>
-				<div class="col-md-2">
-					<select class="form-control" name="tipo_representacion">
-						<option value="0">No definido</option>
-						<option value="1">Nacional</option>
-						<option value="2">Internacional</option>
+				<div class="col-md-4">
+					<select class="form-control" name="tipo_viaje">
+						<option value="0"<?php if($viaje->tipo_viaje == 0) echo " selected"; ?>>No definido</option>
+						<option value="1"<?php if($viaje->tipo_viaje == 1) echo " selected"; ?>>Nacional</option>
+						<option value="2"<?php if($viaje->tipo_viaje == 2) echo " selected"; ?>>Internacional</option>
 					</select>
 				</div>
 				<label class="col-md-2 control-label">No. de autorización</label>
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<input type="text" class="form-control" name="num_autorizacion" placeholder="No. de autorización"<?php if(isset($viaje->num_autorizacion)) echo " value=\"{$viaje->num_autorizacion}\""; ?>>
 				</div>
 			</div>
@@ -111,8 +101,15 @@ if(isset($funcionarios)){
 				<div class="col-md-4">
 					<input type="text" class="form-control" name="num_oficio" placeholder="No. de oficio"<?php if(isset($viaje->num_oficio)) echo " value=\"{$viaje->num_oficio}\""; ?>>
 				</div>
-				<label class="col-md-2 control-label">Solicitante</label>
+				<label class="col-md-2 control-label">No. de comisión</label>
 				<div class="col-md-4">
+					<input type="text" class="form-control" name="num_comision" placeholder="No. de comisión"<?php if(isset($viaje->num_comision)) echo " value=\"{$viaje->num_comision}\""; ?>>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-2 control-label">Solicitante</label>
+				<div class="col-md-10">
 					<input type="text" class="form-control" name="solicitante" placeholder="Solicitante"<?php if(isset($viaje->solicitante)) echo " value=\"{$viaje->solicitante}\""; ?>>
 				</div>
 			</div>
@@ -139,7 +136,7 @@ if(isset($funcionarios)){
 			<div class="form-group">
 				<label class="col-sm-3 col-md-2 control-label">Aerolínea de ida</label>
 				<div class="col-sm-3 col-md-4">
-					<select class="form-control" id="aerolinea_ida"><?php
+					<select class="form-control" name="aerolinea_ida"><?php
 					foreach($aerolineas as $valor){
 						$extra = "";
 						if($valor->id ==$viaje->aerolinea_ida) $extra = " selected";
@@ -156,7 +153,7 @@ if(isset($funcionarios)){
 			<div class="form-group">
 				<label class="col-sm-3 col-md-2 control-label">Aerolínea de regreso</label>
 				<div class="col-sm-3 col-md-4">
-					<select class="form-control" id="aerolinea_vuelta"><?php
+					<select class="form-control" name="aerolinea_vuelta"><?php
 					foreach($aerolineas as $valor){
 						$extra = "";
 						if($valor->id ==$viaje->aerolinea_vuelta) $extra = " selected";
@@ -234,25 +231,29 @@ if(isset($funcionarios)){
 					<div class="input-group input-group-sm">
 						<span class="input-group-addon">$</span>
 						<input type="text" class="form-control" name="tarifa_x_dia" placeholder="Tarifa de viáticos por día"<?php if(isset($viaje->tarifa_x_dia)) echo " value=\"{$viaje->tarifa_x_dia}\""; ?>>
-						<span class="input-group-addon">MXN</span>
 					</div>
 				</div>
+					<label class="col-md-3 control-label">Moneda</label>
+					<div class="col-md-2">
+					<select name="moneda" class="form-control">
+						<option value="1">MXN</option>
+						<option value="2">USD</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-md-2 control-label">Fecha de entrada al hotel</label>
 				<div class="col-md-2">
 					<div class="input-group">
-						<input type="text" class="datepicker form-control" name="fecha_entrada" placeholder=""<?php if(isset($viaje->fecha_entrada)) echo " value=\"{$viaje->fecha_entrada}\""; ?>>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-						</span>
+						<input type="text" class="datepicker form-control" name="fecha_entrada" placeholder=""<?php if(isset($viaje->fecha_entrada)) echo " value=\"".fecha_mx2($viaje->fecha_entrada)."\""; ?>>
+						
 					</div>
 				</div>
-				<label class="col-md-2 control-label">Fecha de salida al hotel</label>
+				<label class="col-md-3 control-label">Fecha de salida al hotel</label>
 				<div class="col-md-2">
 					<div class="input-group">
-						<input type="text" class="datepicker form-control" name="fecha_salida" placeholder=""<?php if(isset($viaje->fecha_salida)) echo " value=\"{$viaje->fecha_salida}\""; ?>>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-						</span>
+						<input type="text" class="datepicker form-control" name="fecha_salida" placeholder=""<?php if(isset($viaje->fecha_salida)) echo " value=\"".fecha_mx2($viaje->fecha_salida)."\""; ?>>
+						
 					</div>
 				</div>
 			</div>
@@ -286,6 +287,16 @@ if(isset($funcionarios)){
 					<div class="input-group input-group-sm">
 						<span class="input-group-addon">$</span>
 						<input type="text" class="form-control" name="monto_viaticos_no_comprobados" placeholder="0.00"<?php if(isset($viaje->monto_viaticos_no_comprobados)) echo " value=\"{$viaje->monto_viaticos_no_comprobados}\""; ?>>
+						<span class="input-group-addon">MXN</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Monto de viáticos devueltos</label>
+				<div class="col-md-2">
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon">$</span>
+						<input type="text" class="form-control" name="monto_viaticos_devueltos" placeholder="0.00"<?php if(isset($viaje->monto_viaticos_devueltos)) echo " value=\"{$viaje->monto_viaticos_devueltos}\""; ?>>
 						<span class="input-group-addon">MXN</span>
 					</div>
 				</div>
@@ -346,20 +357,16 @@ if(isset($funcionarios)){
 				<label class="col-sm-3 col-md-2 control-label">Fecha de inicio de comisión</label>
 				<div class="col-sm-3 col-md-2">
 					<div class="input-group">
-						<input type="text" class="datepicker form-control" name="fecha_inicio_comision" placeholder=""<?php if(isset($viaje->fecha_inicio_comision)) echo " value=\"{$viaje->fecha_inicio_comision}\""; ?>>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-						</span>
+						<input type="text" class="datepicker form-control" name="fecha_inicio_comision" placeholder=""<?php if(isset($viaje->fecha_inicio_comision)) echo " value=\"".fecha_mx2($viaje->fecha_inicio_comision)."\""; ?>>
+						
 					</div>
 				</div>
 				
 				<label class="col-sm-3 col-md-2 control-label">Fecha de fin de comisión</label>
 				<div class="col-sm-3 col-md-2">
 					<div class="input-group">
-						<input type="text" class="datepicker form-control" name="fecha_fin_comision" placeholder=""<?php if(isset($viaje->fecha_fin_comision)) echo " value=\"{$viaje->fecha_fin_comision}\""; ?>>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-						</span>
+						<input type="text" class="datepicker form-control" name="fecha_fin_comision" placeholder=""<?php if(isset($viaje->fecha_fin_comision)) echo " value=\"".fecha_mx2($viaje->fecha_fin_comision)."\""; ?>>
+						
 					</div>
 				</div>
 			</div>
@@ -401,19 +408,13 @@ if(isset($funcionarios)){
 				<label class="col-sm-3 col-md-2 control-label">Fecha de inicio evento</label>
 				<div class="col-sm-3 col-md-2">
 					<div class="input-group">
-						<input type="text" class="datepicker form-control" name="fecha_inicio" placeholder=""<?php if(isset($viaje->fecha_inicio)) echo " value=\"{$viaje->fecha_inicio}\""; ?>>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-						</span>
+						<input type="text" class="datepicker form-control" name="fecha_inicio" placeholder=""<?php if(isset($viaje->fecha_inicio)) echo " value=\"".fecha_mx2($viaje->fecha_inicio)."\""; ?>>
 					</div>
 				</div>
 				<label class="col-sm-3 col-md-2 control-label">Fecha de fin evento</label>
 				<div class="col-sm-3 col-md-2">
 					<div class="input-group">
-						<input type="text" class="datepicker form-control" name="fecha_fin" placeholder=""<?php if(isset($viaje->fecha_fin)) echo " value=\"{$viaje->fecha_fin}\""; ?>>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar"></span></button>
-						</span>
+						<input type="text" class="datepicker form-control" name="fecha_fin" placeholder=""<?php if(isset($viaje->fecha_fin)) echo " value=\"".fecha_mx2($viaje->fecha_fin)."\""; ?>>
 					</div>
 				</div>
 			</div>
@@ -518,11 +519,11 @@ function info_tab(n){
 }
 
 //prevenir enviar formulario con Enter
-$('#formuario1').bind("keyup keypress", function(e) {
+/*$('#formuario1').bind("keyup keypress", function(e) {
 	var code = e.keyCode || e.which; 
 	if (code == 13) {               
 		e.preventDefault();
 		return false;
 	}
-});
+});*/
 </script>

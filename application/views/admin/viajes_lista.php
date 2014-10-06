@@ -5,7 +5,16 @@
 		<span class="glyphicon glyphicon-plus"></span> Agregar viaje
 	</button>
 	<div class="clearfix"></div>
-	
+<?php
+	if(isset($mensaje)){
+?>
+		<div class="alert alert-<?php echo $tipo_mensaje; ?> alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+			<?php echo $mensaje; ?>
+		</div>
+<?php
+	}
+?>
 	<div class="form-group">
 		<label class="col-sm-3 control-label">Seleccione una institución:</label>
 		<div class="row">

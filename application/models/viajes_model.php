@@ -18,7 +18,7 @@
 		}
 		
 		function getUltimosViajes($cantidad = 10){
-			$sql = "SELECT v.id, v.numeracion, f.nombre, f.apellido1, f.apellido2, f.cargo, v.tipo_representacion, v.tipo_comision, v.tipo_viaje, v.pais_destino, v.estado_destino, v.ciudad_destino, v.fecha_inicio_comision, v.fecha_fin_comision FROM viajes AS v
+			$sql = "SELECT v.id, v.num_comision, f.nombre, f.apellido1, f.apellido2, f.cargo, v.tipo_representacion, v.tipo_comision, v.tipo_viaje, v.pais_destino, v.estado_destino, v.ciudad_destino, v.fecha_inicio_comision, v.fecha_fin_comision FROM viajes AS v
 			LEFT JOIN funcionarios AS f ON v.funcionario = f.id
 			WHERE 1
 			ORDER BY fecha_inicio_comision DESC LIMIT ?";
@@ -34,7 +34,7 @@
 		}
 		
 		function viajesInstituto($instituto = 0){
-			$sql = "SELECT v.id, v.numeracion, f.nombre, f.apellido1, f.apellido2, f.cargo, f.unidad_administrativa, f.correo_e, v.tipo_representacion, v.tipo_comision, v.tipo_viaje, v.pais_destino, v.estado_destino, v.ciudad_destino, v.fecha_inicio_comision, v.fecha_fin_comision FROM viajes AS v
+			$sql = "SELECT v.id, v.num_comision, f.nombre, f.apellido1, f.apellido2, f.cargo, f.unidad_administrativa, f.correo_e, v.tipo_representacion, v.tipo_comision, v.tipo_viaje, v.pais_destino, v.estado_destino, v.ciudad_destino, v.fecha_inicio_comision, v.fecha_fin_comision FROM viajes AS v
 			LEFT JOIN funcionarios AS f ON v.funcionario = f.id
 			WHERE f.institucion = ?";
 			//ORDER BY fecha_inicio_comision DESC LIMIT ?"
@@ -54,10 +54,10 @@
 			if($texto != ""){
 				$texto = "%$texto%";
 				
-				$sql = "SELECT v.id, v.numeracion, f.nombre, f.apellido1, f.apellido2, f.cargo, v.tipo_representacion, v.tipo_comision, v.tipo_viaje, v.pais_destino, v.estado_destino, v.ciudad_destino, v.fecha_inicio_comision, v.fecha_fin_comision FROM viajes AS v
+				$sql = "SELECT v.id, v.num_comision, f.nombre, f.apellido1, f.apellido2, f.cargo, v.tipo_representacion, v.tipo_comision, v.tipo_viaje, v.pais_destino, v.estado_destino, v.ciudad_destino, v.fecha_inicio_comision, v.fecha_fin_comision FROM viajes AS v
 				LEFT JOIN funcionarios AS f
 				ON v.funcionario = f.id
-				WHERE v.numeracion LIKE ?
+				WHERE v.num_comision LIKE ?
 				OR f.nombre LIKE ?
 				OR f.apellido1 LIKE ?
 				OR f.apellido2 LIKE ?
